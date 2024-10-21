@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun!</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #000; /* Background hitam */
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+
+        .container {
+            position: relative;
+            text-align: center;
+            margin-top: 20vh;
+            display: none; /* Awalnya tersembunyi */
+        }
+
+        h1 {
+            font-size: 60px;
+            color: #fff;
+            text-shadow: 2px 2px 5px #000;
+            animation: fadeIn 2s ease-in forwards;
+        }
+
+        .balloons {
+            position: absolute;
+            width: 100%;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .balloon {
+            position: absolute;
+            width: 50px;
+            height: 70px;
+            background-color: red;
+            border-radius: 50%;
+            animation: float 5s ease-in-out infinite;
+        }
+
+        .fireworks {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0.8);
+                opacity: 0.8;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-20vh) scale(1);
+                opacity: 0;
+            }
+        }
+
+        @keyframes firework {
+            0% {
+                opacity: 1;
+                transform: scale(0.1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1);
+            }
+        }
+
+        /* Animasi teks */
+        h1 {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="greeting">
+        <h1>Haloo Sayangnyaa Upii, Cinthya Widya Anggraeni!</h1>
+    </div>
+
+    <div class="balloons" id="balloons"></div>
+    <div class="fireworks" id="fireworks"></div>
+
+    <script>
+        // Membuat balon
+        const balloonContainer = document.getElementById('balloons');
+        for (let i = 0; i < 20; i++) {
+            const balloon = document.createElement('div');
+            balloon.classList.add('balloon');
+            balloon.style.left = Math.random() * 100 + 'vw';
+            balloon.style.animationDuration = 4 + Math.random() * 3 + 's';
+            balloon.style.backgroundColor = getRandomColor();
+            balloonContainer.appendChild(balloon);
+        }
+
+        function getRandomColor() {
+            const colors = ['#ff6666', '#66b3ff', '#99ff99', '#ffcc99', '#ffb3e6'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        // Membuat kembang api
+        const fireworkContainer = document.getElementById('fireworks');
+        function createFirework() {
+            const firework = document.createElement('div');
+            firework.classList.add('firework');
+            firework.style.left = Math.random() * 100 + 'vw';
+            firework.style.top = Math.random() * 100 + 'vh';
+            firework.style.width = '20px';
+            firework.style.height = '20px';
+            firework.style.borderRadius = '50%';
+            firework.style.background = 'radial-gradient(circle, yellow, orange, red)';
+            firework.style.position = 'absolute';
+            firework.style.animation = 'firework 1s ease-out forwards';
+            fireworkContainer.appendChild(firework);
+
+            setTimeout(() => {
+                firework.remove();
+            }, 1000);
+        }
+
+        // Menampilkan kembang api secara terus menerus
+        function launchFireworks() {
+            setInterval(createFirework, 500);
+        }
+
+        // Menampilkan teks setelah beberapa detik
+        function showGreeting() {
+            document.getElementById('greeting').style.display = 'block';
+        }
+
+        // Jalankan kembang api dan balon terlebih dahulu
+        launchFireworks();
+
+        // Tampilkan teks setelah 5 detik
+        setTimeout(showGreeting, 5000);
+
+    </script>
+</body>
+</html>
